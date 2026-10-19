@@ -1,0 +1,835 @@
+<！doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport"content="width=设备宽度，初始比例=1.0，最大比例=1.0，用户可缩放=no"/>
+<title>头骨·个人主页</title>
+<style>
+* {
+页边距：0；
+填充：0；
+框大小：边框框；
+-webkit-tap-highlight-color：透明；
+字体系列：苹果系统、BlinkMacSystemFont、“仿冒SC”、“微软雅黑”、无衬线；
+    }
+
+HTML，正文{
+宽度：100%；
+背景：#1a1613；
+overflow-x：隐藏；
+    }
+
+.phone{
+宽度：100%；
+最大宽度：420px；
+margin:0 auto；
+背景：#1a1613；
+位置：相对；
+底垫：80px；/*给底部导航留出空间*/
+    }
+
+/* 顶部导航 */
+.app-nav{
+背景：#1a1613；
+填料：10px14px；
+显示：柔性；
+对齐项：居中；
+justify-Content：间距；
+位置：粘性；
+top:0；
+Z指数：5；
+    }
+    
+.app-nav.title{
+字体大小：16px；
+font-weight:500；
+颜色：#f2e8d8；
+位置：绝对；
+左侧：50%；
+变换：translateX(-50%)；
+指针事件：无；
+Z指数：1；
+    }
+    
+.nav-btn{
+width:34px；
+高度：34px；
+边界半径：50%；
+背景：#332b23；
+显示：柔性；
+对齐项：居中；
+对齐-内容：居中；
+颜色：#c9a36b；
+字体大小：18px；
+光标：指针；
+位置：相对；
+Z指数：2；
+用户选择：无；
+    }
+
+.nav-right{
+显示：柔性；
+间隙：10px；
+对齐项：居中；
+    }
+
+    #musicBtn {
+        font-size: 22px;
+        line-height: 1;
+        padding-bottom: 2px; 
+    }
+
+    /* 背景与头像 */
+    .banner {
+        position: relative;
+        width: 100%;
+        height: 130px;
+        background: #000;
+        overflow: hidden;
+    }
+    .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+    .banner-gradient {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 40px;
+        background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #1a1613 100%);
+        pointer-events: none;
+    }
+    .avatar {
+        position: absolute;
+        left: 16px;
+        bottom: 8px;
+        z-index: 4;
+        width: 74px;
+        height: 74px;
+        border-radius: 50%;
+        background: #26201b;
+        border: 2px solid #c9a36b;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        overflow: hidden;
+    }
+    .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .profile-badge {
+        position: absolute;
+        right: 16px;
+        bottom: 12px;
+        background: rgba(38,32,25,0.78);
+        backdrop-filter: blur(8px);
+        padding: 7px 16px;
+        border-radius: 999px;
+        color: #d4a65e;
+        border: 1px solid #5e4e3b;
+        letter-spacing: 2px;
+        font-size: 13px;
+        z-index: 3;
+    }
+    .side-bar {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 4;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .side-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(38,32,25,0.85);
+        backdrop-filter: blur(8px);
+        border: 1px solid #5e4e3b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #d4a65e;
+        font-size: 18px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        cursor: pointer;
+        user-select: none;
+    }
+
+    /* 用户卡片 */
+    .user-card {
+        margin: -15px 14px 10px;
+        background: #26201b;
+        border-radius: 24px;
+        padding: 18px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+        position: relative;
+        z-index: 2;
+    }
+    .user-card::before {
+        content: "";
+        position: absolute;
+        top: 14px; right: 14px;
+        width: 30px; height: 30px;
+        border-top: 1px solid #5e4e3b;
+        border-right: 1px solid #5e4e3b;
+    }
+    .user-name {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+    }
+    .user-name h1 {
+        font-size: 22px;
+        color: #f2e8d8;
+    }
+    .user-name .en {
+        font-size: 14px;
+        color: #9c8b73;
+        letter-spacing: 2px;
+        font-family: Georgia, serif;
+    }
+    .user-id {
+        font-size: 12px;
+        color: #9c8b73;
+        margin-top: 4px;
+        line-height: 1.6;
+    }
+    .user-desc {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #c9b89e;
+        line-height: 1.6;
+    }
+
+    /* 网格数据 */
+    .status-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 14px;
+    }
+    .status-item {
+        background: #332b23;
+        border-radius: 20px;
+        padding: 14px;
+        position: relative;
+        cursor: pointer;
+    }
+    .status-item .label { font-size: 12px; color: #9c8b73; margin-bottom: 4px; }
+    .status-item .value { font-size: 15px; color: #f2e8d8; font-weight: 600; }
+    .status-item .dot {
+        position: absolute;
+        right: 14px; top: 14px;
+        width: 9px; height: 9px;
+        border-radius: 50%;
+        background: #c9a36b;
+    }
+    .status-item .arrow {
+        position: absolute;
+        right: 14px; bottom: 14px;
+        font-size: 14px;
+        color: #9c8b73;
+    }
+    .data-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin: 0 14px 10px;
+    }
+    .data-item {
+        background: #26201b;
+        border-radius: 20px;
+        padding: 14px 4px;
+        text-align: center;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+        cursor: pointer;
+    }
+    .data-item .num { font-size: 18px; font-weight: 700; color: #f2e8d8; }
+    .data-item .label { font-size: 11px; color: #9c8b73; margin-top: 3px; }
+
+    .quote {
+        font-family: Georgia, serif;
+        font-style: italic;
+        font-size: 24px;
+        color: #c9b89e;
+        padding-left: 14px;
+        border-left: 3px solid #c9a36b;
+        margin: 0 14px 14px;
+    }
+
+    /* 内容卡片 */
+    .func-card {
+        margin: 0 14px 14px;
+        background: #26201b;
+        border-radius: 24px;
+        padding: 18px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+        position: relative;
+        overflow: hidden;
+    }
+    .func-card::before {
+        content: "";
+        position: absolute;
+        top: 14px; right: 14px;
+        width: 40px; height: 40px;
+        border-top: 1px solid #5e4e3b;
+        border-right: 1px solid #5e4e3b;
+        border-radius: 0 12px 0 0;
+    }
+    .func-card::after {
+        content: "";
+        position: absolute;
+        bottom: 14px; left: 14px;
+        width: 40px; height: 40px;
+        border-bottom: 1px solid #5e4e3b;
+        border-left: 1px solid #5e4e3b;
+        border-radius: 0 0 12px 0;
+    }
+    .section-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+    .section-head .num { font-size: 14px; color: #9c8b73; font-family: Georgia, serif; }
+    .section-head h3 { font-size: 16px; color: #f2e8d8; }
+    .section-head .line { flex: 1; height: 1px; background: #4a3e30; }
+    .section-head .tag-deco {
+        font-size: 12px;
+        color: #c9a36b;
+        border: 1px solid #5e4e3b;
+        padding: 4px 9px;
+        border-radius: 999px;
+    }
+
+    /* 标签 */
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag {
+        border: 1px solid #5e4e3b;
+        background: #332b23;
+        border-radius: 999px;
+        padding: 10px 18px;
+        font-size: 14px;
+        color: #d4a65e;
+        cursor: pointer;
+        user-select: none;
+    }
+    .tag.link { text-decoration: none; display: inline-block; }
+
+    /* 进度条 */
+    .progress-area { margin-top: 14px; cursor: pointer; }
+    .progress-row { display: flex; justify-content: space-between; font-size: 12px; color: #9c8b73; }
+    .progress-bar {
+        width: 100%; height: 7px;
+        background: #332b23;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+    .progress-fill {
+        height: 100%; width: 90%;
+        background: linear-gradient(90deg, #8a6d45, #c9a36b);
+        border-radius: 999px;
+    }
+
+    /* 列表与子卡片 */
+    .list { display: flex; flex-direction: column; gap: 10px; }
+    .list-item {
+        background: #332b23;
+        border-radius: 18px;
+        padding: 14px 16px 14px 38px;
+        color: #c9b89e;
+        font-size: 14px;
+        line-height: 1.6;
+        position: relative;
+    }
+    .list-item::before {
+        content: "◆";
+        position: absolute;
+        left: 16px; top: 14px;
+        color: #c9a36b;
+        font-size: 10px;
+    }
+    .sub-card {
+        background: #332b23;
+        border-radius: 18px;
+        padding: 14px;
+        margin-bottom: 14px;
+        border: 1px solid transparent;
+        background-image: linear-gradient(#332b23, #332b23), linear-gradient(135deg, #6b5a42, #3a3128);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+    }
+    .sub-card-title { font-weight: 600; color: #f2e8d8; font-size: 15px; margin-bottom: 6px; }
+    .sub-card-desc { font-size: 13px; color: #c9b89e; line-height: 1.6; }
+    .sub-link { color: #d4a65e; text-decoration: underline; word-break: break-all; }
+    .sub-img { width: 100%; display: block; margin-top: 10px; border-radius: 14px; }
+    .split-line {
+        width: 100%; height: 1px;
+        background: linear-gradient(90deg, transparent, #6b5a42, transparent);
+        margin: 14px 0;
+    }
+
+    /* 底部固定导航 */
+    .app-tabbar {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 420px;
+        background: rgba(26,22,19,0.94);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid #4a3e30;
+        padding: 8px 14px calc(8px + env(safe-area-inset-bottom));
+        display: flex;
+        justify-content: space-around;
+        z-index: 10;
+    }
+    .app-tab {
+        flex: 1;
+        text-align: center;
+        padding: 10px 6px;
+        font-size: 13px;
+        color: #9c8b73;
+        transition: 0.2s;
+        cursor: pointer;
+        user-select: none;
+    }
+    .app-tab.active {
+        background: #332b23;
+        color: #d4a65e;
+        font-weight: 600;
+        border-bottom: 2px solid #c9a36b;
+    }
+
+    /* 页面显隐 */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* 弹窗 */
+    .modal-mask {
+        position: fixed;
+        inset: 0;
+        background: rgba(8,6,5,0.72);
+        backdrop-filter: blur(4px);
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+.modal-mask.show{display:flex；}
+.modal-box{
+宽度：100%；
+最大宽度：340px；
+背景：#26201b；
+边框：1px实体#5e4e3b；
+边界半径：22px；
+填充：18px；
+位置：相对；
+    }
+.modal-close{
+位置：绝对；
+顶部：14px；右侧：14px；
+宽度：30px；高度：30px；
+边界半径：50%；
+背景：#332b23；
+边框：无；
+颜色：#c9a36b；
+字体大小：18px；
+光标：指针；
+显示：柔性；
+对齐项：居中；
+对齐-内容：居中；
+    }
+    .modal-title { font-size: 17px; font-weight: 600; color: #f2e8d8; margin-bottom: 10px; }
+    .modal-text { font-size: 14px; color: #c9b89e; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<!-- 微信内联播放属性 playsinline 必须保留 -->
+<audio id="bgmAudio" loop preload="auto" playsinline webkit-playsinline>
+    <source src="https://mp3tourl.com/audio/1792371179183-bd69df14-1832-4213-8995-42f5dd55d420.mp3" type="audio/mpeg">
+</audio>
+
+<div class="phone">
+    <!-- 顶部导航 -->
+    <div class="app-nav">
+        <div class="nav-btn" onclick="goBackPage()">‹</div>
+        <div class="title">个人主页</div>
+        <div class="nav-right">
+            <div class="nav-btn" id="musicBtn">♪</div>
+            <div class="nav-btn" onclick="openModal('modal-more')">⋯</div>
+        </div>
+    </div>
+
+    <!-- 主页 -->
+    <div class="page active" id="page-home">
+        <div class="banner">
+            <img src="https://i.ibb.co/PGhvCm08/mmexport1792325837503.jpg" alt="背景" />
+            <div class="banner-gradient"></div>
+            <div class="avatar">
+                <img src="https://beeimg.us.ci/temp/6ad4bee358b54.jpg" alt="头像" />
+            </div>
+            <div class="profile-badge">PROFILE</div>
+            <div class="side-bar">
+                <div class="side-btn" onclick="openModal('modal-like')">♥</div>
+                <div class="side-btn" onclick="openModal('modal-collect')">★</div>
+                <div class="side-btn" onclick="openModal('modal-share')">⌲</div>
+            </div>
+        </div>
+
+        <div class="user-card">
+            <div class="user-name">
+                <h1>头骨</h1>
+                <span class="en">TOU GU</span>
+            </div>
+            <div class="user-id">𝐋'𝐚𝐧𝐠𝐞 𝐩𝐞𝐫𝐝 𝐬𝐞𝐬 𝐚𝐢𝐥𝐞𝐬. @头骨 · 个人档案</div>
+            <div class="user-desc">
+                人，无非二百零六块骨。<br>
+                IP属地：郑州/武汉
+            </div>
+            <div class="status-grid">
+                <div class="status-item" onclick="openModal('modal-status')">
+                    <div class="label">接单状态</div>
+                    <div class="value">开放中</div>
+                    <div class="dot"></div>
+                    <div class="arrow">›</div>
+                </div>
+                <div class="status-item" onclick="openModal('modal-reply')">
+                    <div class="label">回复速度</div>
+                    <div class="value">30min内</div>
+                    <div class="arrow">›</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-grid">
+            <div class="data-item" onclick="openModal('modal-order')">
+                <div class="num">1211</div>
+                <div class="label">接单数</div>
+            </div>
+            <div class="data-item" onclick="openModal('modal-rate')">
+                <div class="num">100%</div>
+                <div class="label">好评率</div>
+            </div>
+            <div class="data-item" onclick="openModal('modal-review')">
+                <div class="num">1121</div>
+                <div class="label">板评</div>
+            </div>
+            <div class="data-item" onclick="openModal('modal-progress')">
+                <div class="num">90%</div>
+                <div class="label">派单度</div>
+            </div>
+        </div>
+
+        <div class="quote">Stay with me.</div>
+
+        <div class="func-card">
+            <div class="section-head">
+                <span class="num">01</span>
+                <h3>标签信息</h3>
+                <span class="tag-deco">TAGS</span>
+                <div class="line"></div>
+            </div>
+            <div class="tags">
+                <span class="tag" onclick="openTagModal('双')">双</span>
+                <span class="tag" onclick="openTagModal('ENFP')">ENFP</span>
+                <span class="tag" onclick="openTagModal('重度拖延症')">重度拖延症</span>
+                <span class="tag" onclick="openTagModal('薅人机器')">薅人机器</span>
+                <span class="tag" onclick="openTagModal('杂食圈知名人士')">杂食圈知名人士</span>
+                <span class="tag" onclick="openTagModal('话痨')">话痨</span>
+                <span class="tag" onclick="openTagModal('温柔')">温柔</span>
+                <span class="tag" onclick="openTagModal('金钱主义')">金钱主义</span>
+                <span class="tag" onclick="openTagModal('世派一')">世派一</span>
+            </div>
+            <div class="progress-area" onclick="openModal('modal-progress')">
+                <div class="progress-row">
+                    <span>派单进度</span>
+                    <span>90%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 业务 -->
+    <div class="page" id="page-skill">
+        <div class="func-card" style="margin-top:10px;">
+            <div class="section-head">
+                <span class="num">02</span>
+                <h3>可接业务</h3>
+                <span class="tag-deco">SERVICES</span>
+                <div class="line"></div>
+            </div>
+            <div class="tags">
+                <a class="tag link" href="javascript:void(0)">黑羊</a>
+                <a class="tag link" href="javascript:void(0)">雾山影</a>
+                <a class="tag link" href="javascript:void(0)">代跑</a>
+                <a class="tag link" href="javascript:void(0)">猫猫𑄝੭</a>
+            </div>
+            <div class="split-line"></div>
+            <div class="sub-card">
+                <div class="sub-card-title">▸ 或许可以了解我?</div>
+                <div class="sub-card-desc">耐心看完才算认识</div>
+                <img class="sub-img" src="https://beeimg.us.ci/temp/6ad56009b3278.jpg" alt="了解我">
+            </div>
+            <div class="sub-card">
+                <div class="sub-card-title">▸ 我在黑羊很想妳。</div>
+                <div class="sub-card-desc">
+                    以下为黑羊自助链接，感谢陛下指名♡。<br>
+                    -黑羊失踪档案-<br>
+                    <a class="sub-link" href="https://www.kdocs.cn/l/ctUv2cmcuS3l?f=301" target="_blank">https://www.kdocs.cn/l/ctUv2cmcuS3l?f=301</a>
+                </div>
+                <img class="sub-img" src="https://beeimg.us.ci/temp/6ad4bf4349ec4.jpg" alt="黑羊">
+            </div>
+            <div class="sub-card">
+                <div class="sub-card-title">▸ 我在雾山影很想妳。</div>
+                <div class="sub-card-desc">
+                    以下为雾山影自助链接，感谢陛下指名♡。<br>
+                    雾山影合集<br>
+                    【病恋】<a class="sub-link" href="https://kdocs.cn/l/cjaxVo1fyLmY" target="_blank">https://kdocs.cn/l/cjaxVo1fyLmY</a><br>
+                    【虚恋】<a class="sub-link" href="https://kdocs.cn/l/cgEDT0gW4Cao" target="_blank">https://kdocs.cn/l/cgEDT0gW4Cao</a><br>
+                    【虐恋】<a class="sub-link" href="https://kdocs.cn/l/clUTaeIUYNB7" target="_blank">https://kdocs.cn/l/clUTaeIUYNB7</a><br>
+                    【纯连】<a class="sub-link" href="https://docs.qq.com/aio/DYmJKbE1wRFFzUm9C" target="_blank">https://docs.qq.com/aio/DYmJKbE1wRFFzUm9C</a>
+                </div>
+                <img class="sub-img" src="https://beeimg.us.ci/temp/6ad4bf4ac3303.jpg" alt="雾山影">
+            </div>
+            <div class="sub-card">
+                <div class="sub-card-title">▸ 代跑相关</div>
+                <div class="sub-card-desc">
+                    单图 | 云野雨林禁阁2r 墓土霞谷3r<br>
+                    全图蜡 | 20r<br>
+                    全图金人 | 25<br>
+                    直飞送门口 | 1r<br>
+                    养老专用 | 饭+任务+代币 5r/天<br>
+                    单日任务/饭/代币 | 2r<br>
+                    代仅接iOS | 带不限渠道<br>
+                    <a class="sub-link" href="http://t.cn/A6KxzHNc" target="_blank">http://t.cn/A6KxzHNc</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 碎碎念 -->
+    <div class="page" id="page-notice">
+        <div class="func-card" style="margin-top:10px;">
+            <div class="section-head">
+                <span class="num">05</span>
+                <h3>碎碎念</h3>
+                <span class="tag-deco">NOTICE</span>
+                <div class="line"></div>
+            </div>
+            <div class="list">
+                <div class="list-item">1. 所有单子默认「先付后陪」，赊账拉黑。</div>
+                <div class="list-item">黑羊 | 雾山影均为常驻，其余在团情况请关注微博@AAA头骨 | @A頭骨了解详情。</div>
+            </div>
+            <div class="sub-card" style="margin-top:14px;">
+                <img class="sub-img" src="https://beeimg.us.ci/temp/6ad56065b482e.jpg" alt="图一" style="margin-top:0;">
+            </div>
+            <div class="list">
+                <div class="list-item">在我这里会包容您的一切，所有事情都以妳为基准。</div>
+                <div class="list-item">非现取单默认拉群，如无需拉群提前告知。</div>
+                <div class="list-item">新手板有疑问可以大胆提出，我很乐意为妳解答。</div>
+                <div class="list-item">喜欢给下单板随机掉落嫖卡。</div>
+            </div>
+            <div class="sub-card" style="margin-top:14px;">
+                <img class="sub-img" src="https://beeimg.us.ci/temp/6ad560a572d80.jpg" alt="图二" style="margin-top:0;">
+            </div>
+            <div class="list">
+                <div class="list-item">单内一切问题请找「我」解决，让女人伤心的事我办不到。</div>
+                <div class="list-item">十万紧急请call电话，上班时间科室不会一直关注消息。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="app-tabbar">
+        <div class="app-tab active" data-page="page-home" onclick="switchTab('page-home')">主页</div>
+        <div class="app-tab" data-page="page-skill" onclick="switchTab('page-skill')">业务</div>
+        <div class="app-tab" data-page="page-notice" onclick="switchTab('page-notice')">碎碎念</div>
+    </div>
+</div>
+
+<!-- 弹窗区域 -->
+<div class="modal-mask" id="modal-like">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-like')">×</button>
+        <div class="modal-title">喜欢</div>
+        <div class="modal-text">感谢你的喜欢！</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-collect">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-collect')">×</button>
+        <div class="modal-title">收藏</div>
+        <div class="modal-text">已收藏，感谢支持。</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-share">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-share')">×</button>
+        <div class="modal-title">分享</div>
+        <div class="modal-text">复制链接分享主页。</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-status">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-status')">×</button>
+        <div class="modal-title">接单状态</div>
+        <div class="modal-text">目前接单开放，可以私信咨询。</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-reply">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-reply')">×</button>
+        <div class="modal-title">回复速度</div>
+        <div class="modal-text">无特殊情况30min内回复。</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-order">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-order')">×</button>
+        <div class="modal-title">接单数</div>
+        <div class="modal-text">累计接单数：1211单（机密）</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-rate">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-rate')">×</button>
+        <div class="modal-title">好评率</div>
+        <div class="modal-text">好评率100%</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-review">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-review')">×</button>
+        <div class="modal-title">板评</div>
+        <div class="modal-text">板评页面已调整，感谢支持。</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-progress">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-progress')">×</button>
+        <div class="modal-title">派单度</div>
+        <div class="modal-text">当前派单度90%，可以排单预约。</div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-tag">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-tag')">×</button>
+        <div class="modal-title" id="tag-modal-title">标签</div>
+        <div class="modal-text" id="tag-modal-text"></div>
+    </div>
+</div>
+<div class="modal-mask" id="modal-more">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('modal-more')">×</button>
+        <div class="modal-title">更多</div>
+        <div class="modal-text">更多功能开发中</div>
+    </div>
+</div>
+
+<script>
+// 页面切换
+let pageStack = ['page-home'];
+
+function renderPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    document.querySelectorAll('.app-tab').forEach(tab => tab.classList.remove('active'));
+    const tabDom = document.querySelector(`.app-tab[data-page="${pageId}"]`);
+    if(tabDom) tabDom.classList.add('active');
+}
+
+function switchTab(pageId) {
+    const idx = pageStack.indexOf(pageId);
+    if(idx !== -1) {
+        pageStack = pageStack.slice(0, idx + 1);
+    } else {
+        pageStack.push(pageId);
+    }
+    renderPage(pageId);
+}
+
+function goBackPage() {
+    if(pageStack.length > 1) {
+        pageStack.pop();
+        renderPage(pageStack[pageStack.length - 1]);
+    }
+}
+
+// 弹窗控制
+function openModal(id) {
+    document.getElementById(id).classList.add('show');
+}
+function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+}
+function openTagModal(name) {
+    document.getElementById('tag-modal-title').innerText = '标签 ' + name;
+    document.getElementById('tag-modal-text').innerText = '标签：' + name;
+    openModal('modal-tag');
+}
+document.querySelectorAll('.modal-mask').forEach(mask => {
+    mask.addEventListener('click', function(e) {
+        if(e.target === mask) mask.classList.remove('show');
+    });
+});
+
+// 背景音乐（微信兼容版）
+const bgmAudio = document.getElementById('bgmAudio');
+const musicBtn = document.getElementById('musicBtn');
+bgmAudio.volume=0.35；
+
+if(typeof WeixinJSBridge==='undefined'){
+文件。addEventListener('WeixinJSBridgeReady'，()=>{try{bgmAudio.负载()；}捕获(e){}，假)；
+}else{
+尝试{bgmAudio.load()；}catch(e){}
+}
+
+函数playBgm(){
+bgmAudio.play().then(()=>{
+musicBtn.textContent='♪'；
+musicBtn.style.color='#c9a36b'；
+}).catch(()=>{
+musicBtn.textContent='♫'；
+    });
+}
+
+函数pauseBgm(){
+bgmAudio.pause()；
+musicBtn.textContent='♫'；
+musicBtn.style.color='#9c8b73'；
+}
+
+函数onMusicTap(e){
+if(e){e.preventDefault()；e.stopPropagation()；}
+bgmAudio.paused？playBgm()：pauseBgm()；
+}
+
+musicBtn.addEventListener('touchstart'，onMusicTap，{passive:false})；
+musicBtn.addEventListener('click'，onMusicTap)；
+
+让自动启动=false；
+函数tryAutoStart(e){
+if(自动启动||e.target===musicBtn||musicBtn。contains(e.target))返回；
+Autostarted=true；
+playBgm()；
+document.removeEventListener('touchstart'，tryAutoStart)；
+document.removeEventListener('click'，tryAutoStart)；
+}
+document.addEventListener('touchstart'，tryAutoStart，{passive:true})；
+document.addEventListener('click'，tryAutoStart)；
+</script>
+</body>
+</html>
