@@ -5,440 +5,75 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>头骨 · 个人主页</title>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    }
-
-    html, body {
-        width: 100%;
-        background: #1a1613;
-        overflow-x: hidden;
-    }
-
-    .phone {
-        width: 100%;
-        max-width: 420px;
-        margin: 0 auto;
-        background: #1a1613;
-        position: relative;
-        padding-bottom: 80px;
-    }
-
-    .app-nav {
-        background: #1a1613;
-        padding: 10px 14px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 5;
-    }
-    
-    .app-nav .title {
-        font-size: 16px;
-        font-weight: 500;
-        color: #f2e8d8;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        pointer-events: none; 
-        z-index: 1;
-    }
-    
-    .nav-btn {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        background: #332b23;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #c9a36b;
-        font-size: 18px;
-        cursor: pointer;
-        position: relative; 
-        z-index: 2;
-        user-select: none;
-    }
-
-    .nav-right {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
-
-    #musicBtn {
-        font-size: 22px;
-        line-height: 1;
-        padding-bottom: 2px; 
-    }
-
-    .banner {
-        position: relative;
-        width: 100%;
-        height: 130px;
-        background: #000;
-        overflow: hidden;
-    }
-    .banner img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        display: block;
-    }
-    .banner-gradient {
-        position: absolute;
-        left: 0; right: 0; bottom: 0;
-        height: 40px;
-        background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #1a1613 100%);
-        pointer-events: none;
-    }
-    .avatar {
-        position: absolute;
-        left: 16px;
-        bottom: 8px;
-        z-index: 4;
-        width: 74px;
-        height: 74px;
-        border-radius: 50%;
-        background: #26201b;
-        border: 2px solid #c9a36b;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        overflow: hidden;
-    }
-    .avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    .profile-badge {
-        position: absolute;
-        right: 16px;
-        bottom: 12px;
-        background: rgba(38,32,25,0.78);
-        backdrop-filter: blur(8px);
-        padding: 7px 16px;
-        border-radius: 999px;
-        color: #d4a65e;
-        border: 1px solid #5e4e3b;
-        letter-spacing: 2px;
-        font-size: 13px;
-        z-index: 3;
-    }
-    .side-bar {
-        position: absolute;
-        right: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 4;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    .side-btn {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: rgba(38,32,25,0.85);
-        backdrop-filter: blur(8px);
-        border: 1px solid #5e4e3b;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #d4a65e;
-        font-size: 18px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-        cursor: pointer;
-        user-select: none;
-    }
-
-    .user-card {
-        margin: -15px 14px 10px;
-        background: #26201b;
-        border-radius: 24px;
-        padding: 18px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-        position: relative;
-        z-index: 2;
-    }
-    .user-card::before {
-        content: "";
-        position: absolute;
-        top: 14px; right: 14px;
-        width: 30px; height: 30px;
-        border-top: 1px solid #5e4e3b;
-        border-right: 1px solid #5e4e3b;
-    }
-    .user-name {
-        display: flex;
-        align-items: flex-end;
-        gap: 8px;
-    }
-    .user-name h1 {
-        font-size: 22px;
-        color: #f2e8d8;
-    }
-    .user-name .en {
-        font-size: 14px;
-        color: #9c8b73;
-        letter-spacing: 2px;
-        font-family: Georgia, serif;
-    }
-    .user-id {
-        font-size: 12px;
-        color: #9c8b73;
-        margin-top: 4px;
-        line-height: 1.6;
-    }
-    .user-desc {
-        margin-top: 10px;
-        font-size: 14px;
-        color: #c9b89e;
-        line-height: 1.6;
-    }
-
-    .status-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 14px;
-    }
-    .status-item {
-        background: #332b23;
-        border-radius: 20px;
-        padding: 14px;
-        position: relative;
-        cursor: pointer;
-    }
-    .status-item .label { font-size: 12px; color: #9c8b73; margin-bottom: 4px; }
-    .status-item .value { font-size: 15px; color: #f2e8d8; font-weight: 600; }
-    .status-item .dot {
-        position: absolute;
-        right: 14px; top: 14px;
-        width: 9px; height: 9px;
-        border-radius: 50%;
-        background: #c9a36b;
-    }
-    .status-item .arrow {
-        position: absolute;
-        right: 14px; bottom: 14px;
-        font-size: 14px;
-        color: #9c8b73;
-    }
-    .data-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        margin: 0 14px 10px;
-    }
-    .data-item {
-        background: #26201b;
-        border-radius: 20px;
-        padding: 14px 4px;
-        text-align: center;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-        cursor: pointer;
-    }
-    .data-item .num { font-size: 18px; font-weight: 700; color: #f2e8d8; }
-    .data-item .label { font-size: 11px; color: #9c8b73; margin-top: 3px; }
-
-    .quote {
-        font-family: Georgia, serif;
-        font-style: italic;
-        font-size: 24px;
-        color: #c9b89e;
-        padding-left: 14px;
-        border-left: 3px solid #c9a36b;
-        margin: 0 14px 14px;
-    }
-
-    .func-card {
-        margin: 0 14px 14px;
-        background: #26201b;
-        border-radius: 24px;
-        padding: 18px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-        position: relative;
-        overflow: hidden;
-    }
-    .func-card::before {
-        content: "";
-        position: absolute;
-        top: 14px; right: 14px;
-        width: 40px; height: 40px;
-        border-top: 1px solid #5e4e3b;
-        border-right: 1px solid #5e4e3b;
-        border-radius: 0 12px 0 0;
-    }
-    .func-card::after {
-        content: "";
-        position: absolute;
-        bottom: 14px; left: 14px;
-        width: 40px; height: 40px;
-        border-bottom: 1px solid #5e4e3b;
-        border-left: 1px solid #5e4e3b;
-        border-radius: 0 0 12px 0;
-    }
-    .section-head {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 14px;
-    }
-    .section-head .num { font-size: 14px; color: #9c8b73; font-family: Georgia, serif; }
-    .section-head h3 { font-size: 16px; color: #f2e8d8; }
-    .section-head .line { flex: 1; height: 1px; background: #4a3e30; }
-    .section-head .tag-deco {
-        font-size: 12px;
-        color: #c9a36b;
-        border: 1px solid #5e4e3b;
-        padding: 4px 9px;
-        border-radius: 999px;
-    }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 10px; }
-    .tag {
-        border: 1px solid #5e4e3b;
-        background: #332b23;
-        border-radius: 999px;
-        padding: 10px 18px;
-        font-size: 14px;
-        color: #d4a65e;
-        cursor: pointer;
-        user-select: none;
-    }
-    .tag.link { text-decoration: none; display: inline-block; }
-
-    .progress-area { margin-top: 14px; cursor: pointer; }
-    .progress-row { display: flex; justify-content: space-between; font-size: 12px; color: #9c8b73; }
-    .progress-bar {
-        width: 100%; height: 7px;
-        background: #332b23;
-        border-radius: 999px;
-        overflow: hidden;
-        margin-top: 8px;
-    }
-    .progress-fill {
-        height: 100%; width: 90%;
-        background: linear-gradient(90deg, #8a6d45, #c9a36b);
-        border-radius: 999px;
-    }
-
-    .list { display: flex; flex-direction: column; gap: 10px; }
-    .list-item {
-        background: #332b23;
-        border-radius: 18px;
-        padding: 14px 16px 14px 38px;
-        color: #c9b89e;
-        font-size: 14px;
-        line-height: 1.6;
-        position: relative;
-    }
-    .list-item::before {
-        content: "◆";
-        position: absolute;
-        left: 16px; top: 14px;
-        color: #c9a36b;
-        font-size: 10px;
-    }
-    .sub-card {
-        background: #332b23;
-        border-radius: 18px;
-        padding: 14px;
-        margin-bottom: 14px;
-        border: 1px solid transparent;
-        background-image: linear-gradient(#332b23, #332b23), linear-gradient(135deg, #6b5a42, #3a3128);
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-    }
-    .sub-card-title { font-weight: 600; color: #f2e8d8; font-size: 15px; margin-bottom: 6px; }
-    .sub-card-desc { font-size: 13px; color: #c9b89e; line-height: 1.6; }
-    .sub-link { color: #d4a65e; text-decoration: underline; word-break: break-all; }
-    .sub-img { width: 100%; display: block; margin-top: 10px; border-radius: 14px; }
-    .split-line {
-        width: 100%; height: 1px;
-        background: linear-gradient(90deg, transparent, #6b5a42, transparent);
-        margin: 14px 0;
-    }
-
-    .app-tabbar {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        max-width: 420px;
-        background: rgba(26,22,19,0.94);
-        backdrop-filter: blur(12px);
-        border-top: 1px solid #4a3e30;
-        padding: 8px 14px calc(8px + env(safe-area-inset-bottom));
-        display: flex;
-        justify-content: space-around;
-        z-index: 10;
-    }
-    .app-tab {
-        flex: 1;
-        text-align: center;
-        padding: 10px 6px;
-        font-size: 13px;
-        color: #9c8b73;
-        transition: 0.2s;
-        cursor: pointer;
-        user-select: none;
-    }
-    .app-tab.active {
-        background: #332b23;
-        color: #d4a65e;
-        font-weight: 600;
-        border-bottom: 2px solid #c9a36b;
-    }
-
-    .page { display: none; }
-    .page.active { display: block; }
-
-    .modal-mask {
-        position: fixed;
-        inset: 0;
-        background: rgba(8,6,5,0.72);
-        backdrop-filter: blur(4px);
-        z-index: 9999;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-    .modal-mask.show { display: flex; }
-    .modal-box {
-        width: 100%;
-        max-width: 340px;
-        background: #26201b;
-        border: 1px solid #5e4e3b;
-        border-radius: 22px;
-        padding: 18px;
-        position: relative;
-    }
-    .modal-close {
-        position: absolute;
-        top: 14px; right: 14px;
-        width: 30px; height: 30px;
-        border-radius: 50%;
-        background: #332b23;
-        border: none;
-        color: #c9a36b;
-        font-size: 18px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .modal-title { font-size: 17px; font-weight: 600; color: #f2e8d8; margin-bottom: 10px; }
-    .modal-text { font-size: 14px; color: #c59b89e; line-height: 1.7; }
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color: transparent;font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;}
+    html,body{width:100%;background:#1a1613;}
+    .phone{width:100%;max-width:420px;margin:0 auto;background:#1a1613;position:relative;}
+    .app-nav{background:#1a1613;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5;}
+    .app-nav .title{font-size:16px;font-weight:500;color:#f2e8d8;position: absolute;left: 50%;transform: translateX(-50%);pointer-events: none;z-index: 1;}
+    .nav-btn{width:34px;height:34px;border-radius:50%;background:#332b23;display:flex;align-items:center;justify-content:center;color:#c9a36b;font-size:18px;cursor:pointer;position: relative;z-index: 2;user-select: none;}
+    .nav-right{display: flex;gap: 10px;align-items: center;}
+    #musicBtn{font-size: 22px;line-height: 1;padding-bottom: 2px;}
+    .banner{position:relative;width:100%;height:150px;background:#26201b;overflow:hidden;}
+    .banner img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+    .banner-gradient{position:absolute;left:0;right:0;bottom:0;height:50px;background:linear-gradient(180deg, rgba(0,0,0,0) 0%, #1a1613 100%);pointer-events:none;}
+    .avatar{position:absolute;left:16px;bottom:8px;z-index:4;width:74px;height:74px;border-radius:50%;background:#26201b;border:2px solid #c9a36b;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.5);overflow:hidden;}
+    .avatar img{width:100%;height:100%;object-fit:cover;}
+    .profile-badge{position:absolute;right:16px;bottom:12px;background:rgba(38,32,25,0.78);backdrop-filter: blur(8px);padding:7px 16px;border-radius:999px;color:#d4a65e;border:1px solid #5e4e3b;letter-spacing:2px;font-size:13px;z-index:3;}
+    .side-bar{position:absolute;right:14px;top:50%;transform:translateY(-50%);z-index:4;display:flex;flex-direction:column;gap:10px;}
+    .side-btn{width:44px;height:44px;border-radius:50%;background:rgba(38,32,25,0.85);backdrop-filter: blur(8px);border:1px solid #5e4e3b;display:flex;align-items:center;justify-content:center;color:#d4a65e;font-size:18px;box-shadow:0 4px 10px rgba(0,0,0,0.4);cursor:pointer;user-select: none;}
+    .user-card{margin:-15px 14px 10px;background:#26201b;border-radius:24px;padding:18px;box-shadow:0 4px 14px rgba(0,0,0,0.35);position:relative;z-index:2;}
+    .user-card::before{content:"";position:absolute;top:14px;right:14px;width:30px;height:30px;border-top:1px solid #5e4e3b;border-right:1px solid #5e4e3b;}
+    .user-name{display:flex;align-items:flex-end;gap:8px;}
+    .user-name h1{font-size:22px;color:#f2e8d8;}
+    .user-name .en{font-size:14px;color:#9c8b73;letter-spacing:2px;font-family:Georgia,serif;}
+    .user-id{font-size:12px;color:#9c8b73;margin-top:4px;line-height:1.6;}
+    .user-desc{margin-top:10px;font-size:14px;color:#c9b89e;line-height:1.6;}
+    .status-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+    .status-item{background:#332b23;border-radius:20px;padding:14px;position:relative;cursor:pointer;transition:0.2s;}
+    .status-item .label{font-size:12px;color:#9c8b73;margin-bottom:4px;}
+    .status-item .value{font-size:15px;color:#f2e8d8;font-weight:600;}
+    .status-item .dot{position:absolute;right:14px;top:14px;width:9px;height:9px;border-radius:50%;background:#c9a36b;}
+    .status-item .arrow{position:absolute;right:14px;bottom:14px;font-size:14px;color:#9c8b73;}
+    .data-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 14px 10px;}
+    .data-item{background:#26201b;border-radius:20px;padding:14px 4px;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,0.3);cursor:pointer;}
+    .data-item .num{font-size:18px;font-weight:700;color:#f2e8d8;}
+    .data-item .label{font-size:11px;color:#9c8b73;margin-top:3px;}
+    .quote{font-family:Georgia,serif;font-style:italic;font-size:24px;color:#c9b89e;padding-left:14px;border-left:3px solid #c9a36b;margin:0 14px 14px;}
+    .func-card{margin:0 14px 14px;background:#26201b;border-radius:24px;padding:18px;box-shadow:0 4px 14px rgba(0,0,0,0.35);position:relative;overflow:hidden;}
+    .func-card::before{content:"";position:absolute;top:14px;right:14px;width:40px;height:40px;border-top:1px solid #5e4e3b;border-right:1px solid #5e4e3b;border-radius:0 12px 0 0;}
+    .func-card::after{content:"";position:absolute;bottom:14px;left:14px;width:40px;height:40px;border-bottom:1px solid #5e4e3b;border-left:1px solid #5e4e3b;border-radius:0 0 12px 0;}
+    .section-head{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+    .section-head .num{font-size:14px;color:#9c8b73;font-family:Georgia,serif;}
+    .section-head h3{font-size:16px;color:#f2e8d8;}
+    .section-head .line{flex:1;height:1px;background:#4a3e30;}
+    .section-head .tag-deco{font-size:12px;color:#c9a36b;border:1px solid #5e4e3b;padding:4px 9px;border-radius:999px;}
+    .tags{display:flex;flex-wrap:wrap;gap:10px;}
+    .tag{border:1px solid #5e4e3b;background:#332b23;border-radius:999px;padding:10px 18px;font-size:14px;color:#d4a65e;cursor:pointer;user-select: none;}
+    .tag.link{cursor:pointer;text-decoration:none;display:inline-block;}
+    .progress-area{margin-top:14px;cursor:pointer;}
+    .progress-row{display:flex;justify-content:space-between;font-size:12px;color:#9c8b73;}
+    .progress-bar{width:100%;height:7px;background:#332b23;border-radius:999px;overflow:hidden;margin-top:8px;}
+    .progress-fill{height:100%;width:90%;background:linear-gradient(90deg,#8a6d45,#c9a36b);border-radius:999px;}
+    .list{display:flex;flex-direction:column;gap:10px;}
+    .list-item{background:#332b23;border-radius:18px;padding:14px 16px 14px 38px;color:#c9b89e;font-size:14px;line-height:1.6;position:relative;}
+    .list-item::before{content:"◆";position:absolute;left:16px;top:14px;color:#c9a36b;font-size:10px;}
+    .sub-card{background:#332b23;border-radius:18px;padding:14px;margin-bottom:14px;position:relative;border:1px solid transparent;background-image: linear-gradient(#332b23,#332b23), linear-gradient(135deg,#6b5a42,#3a3128);background-origin: border-box;background-clip: padding-box, border-box;}
+    .sub-card-title{font-weight:600;color:#f2e8d8;font-size:15px;margin-bottom:6px;}
+    .sub-card-desc{font-size:13px;color:#c9b89e;line-height:1.6;}
+    .sub-link{color:#d4a65e;text-decoration:underline;word-break:break-all;}
+    .sub-img{width:100%;display:block;margin-top:10px;border-radius:14px;background-color: #26201b;}
+    .split-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,#6b5a42,transparent);margin:14px 0;}
+    .app-tabbar{position:sticky;left:0;right:0;bottom:0;background:rgba(26,22,19,0.94);backdrop-filter: blur(12px);border-top:1px solid #4a3e30;padding:8px 14px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;z-index:10;margin-top:20px;}
+    .app-tab{flex:1;text-align:center;padding:10px 6px;font-size:13px;color:#9c8b73;transition:0.2s;cursor:pointer;user-select: none;}
+    .app-tab.active{background:#332b23;color:#d4a65e;font-weight:600;border-bottom:2px solid #c9a36b;}
+    .page{display:none;}
+    .page.active{display:block;}
+    .modal-mask{position:fixed;inset:0;background:rgba(8,6,5,0.72);backdrop-filter:blur(4px);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}
+    .modal-mask.show{display:flex;}
+    .modal-box{width:100%;max-width:340px;background:#26201b;border:1px solid #5e4e3b;border-radius:22px;padding:18px;position:relative;}
+    .modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:#332b23;border:none;color:#c9a36b;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+    .modal-title{font-size:17px;font-weight:600;color:#f2e8d8;margin-bottom:10px;}
+    .modal-text{font-size:14px;color:#c9b89e;line-height:1.7;}
 </style>
 </head>
 <body>
@@ -459,7 +94,8 @@
 
     <div class="page active" id="page-home">
         <div class="banner">
-            <img src="https://i.ibb.co/5W8wThWR/mmexport1792325837503.jpg" alt="背景" />
+            <!-- 修复了多余的符号，背景图恢复正常 -->
+            <img src="https://beeimg.us.ci/temp/6ad59a4daf718.jpg" alt="背景" />
             <div class="banner-gradient"></div>
             <div class="avatar">
                 <img src="https://beeimg.us.ci/temp/6ad4bee358b54.jpg" alt="头像" />
@@ -473,58 +109,26 @@
         </div>
 
         <div class="user-card">
-            <div class="user-name">
-                <h1>头骨</h1>
-                <span class="en">TOU GU</span>
-            </div>
+            <div class="user-name"><h1>头骨</h1><span class="en">TOU GU</span></div>
             <div class="user-id">𝐋'𝐚𝐧𝐠𝐞 𝐩𝐞𝐫𝐝 𝐬𝐞𝐬 𝐚𝐢𝐥𝐞𝐬. @头骨 · 个人档案</div>
-            <div class="user-desc">
-                人，无非二百零六块骨。<br>
-                IP属地：郑州/武汉
-            </div>
+            <div class="user-desc">人，无非二百零六块骨。<br>IP属地：郑州/武汉</div>
             <div class="status-grid">
-                <div class="status-item" onclick="openModal('modal-status')">
-                    <div class="label">接单状态</div>
-                    <div class="value">开放中</div>
-                    <div class="dot"></div>
-                    <div class="arrow">›</div>
-                </div>
-                <div class="status-item" onclick="openModal('modal-reply')">
-                    <div class="label">回复速度</div>
-                    <div class="value">30min内</div>
-                    <div class="arrow">›</div>
-                </div>
+                <div class="status-item" onclick="openModal('modal-status')"><div class="label">接单状态</div><div class="value">开放中</div><div class="dot"></div><div class="arrow">›</div></div>
+                <div class="status-item" onclick="openModal('modal-reply')"><div class="label">回复速度</div><div class="value">30min内</div><div class="arrow">›</div></div>
             </div>
         </div>
 
         <div class="data-grid">
-            <div class="data-item" onclick="openModal('modal-order')">
-                <div class="num">1211</div>
-                <div class="label">接单数</div>
-            </div>
-            <div class="data-item" onclick="openModal('modal-rate')">
-                <div class="num">100%</div>
-                <div class="label">好评率</div>
-            </div>
-            <div class="data-item" onclick="openModal('modal-review')">
-                <div class="num">1121</div>
-                <div class="label">板评</div>
-            </div>
-            <div class="data-item" onclick="openModal('modal-progress')">
-                <div class="num">90%</div>
-                <div class="label">派单度</div>
-            </div>
+            <div class="data-item" onclick="openModal('modal-order')"><div class="num">1211</div><div class="label">接单数</div></div>
+            <div class="data-item" onclick="openModal('modal-rate')"><div class="num">100%</div><div class="label">好评率</div></div>
+            <div class="data-item" onclick="openModal('modal-review')"><div class="num">1121</div><div class="label">板评</div></div>
+            <div class="data-item" onclick="openModal('modal-progress')"><div class="num">90%</div><div class="label">派单度</div></div>
         </div>
 
         <div class="quote">Stay with me.</div>
 
         <div class="func-card">
-            <div class="section-head">
-                <span class="num">01</span>
-                <h3>标签信息</h3>
-                <span class="tag-deco">TAGS</span>
-                <div class="line"></div>
-            </div>
+            <div class="section-head"><span class="num">01</span><h3>标签信息</h3><span class="tag-deco">TAGS</span><div class="line"></div></div>
             <div class="tags">
                 <span class="tag" onclick="openTagModal('双')">双</span>
                 <span class="tag" onclick="openTagModal('ENFP')">ENFP</span>
@@ -537,25 +141,15 @@
                 <span class="tag" onclick="openTagModal('世派一')">世派一</span>
             </div>
             <div class="progress-area" onclick="openModal('modal-progress')">
-                <div class="progress-row">
-                    <span>派单进度</span>
-                    <span>90%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
+                <div class="progress-row"><span>派单进度</span><span>90%</span></div>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
             </div>
         </div>
     </div>
 
     <div class="page" id="page-skill">
         <div class="func-card" style="margin-top:10px;">
-            <div class="section-head">
-                <span class="num">02</span>
-                <h3>可接业务</h3>
-                <span class="tag-deco">SERVICES</span>
-                <div class="line"></div>
-            </div>
+            <div class="section-head"><span class="num">02</span><h3>可接业务</h3><span class="tag-deco">SERVICES</span><div class="line"></div></div>
             <div class="tags">
                 <a class="tag link" href="javascript:void(0)">黑羊</a>
                 <a class="tag link" href="javascript:void(0)">雾山影</a>
@@ -570,65 +164,36 @@
             </div>
             <div class="sub-card">
                 <div class="sub-card-title">▸ 我在黑羊很想妳。</div>
-                <div class="sub-card-desc">
-                    以下为黑羊自助链接，感谢陛下指名♡。<br>
-                    -黑羊失踪档案-<br>
-                    <a class="sub-link" href="https://www.kdocs.cn/l/ctUv2cmcuS3l?f=301" target="_blank">https://www.kdocs.cn/l/ctUv2cmcuS3l?f=301</a>
-                </div>
+                <div class="sub-card-desc">以下为黑羊自助链接，感谢陛下指名♡。<br>-黑羊失踪档案-<br><a class="sub-link" href="https://www.kdocs.cn/l/ctUv2cmcuS3l?f=301" target="_blank">https://www.kdocs.cn/l/ctUv2cmcuS3l?f=301</a></div>
                 <img class="sub-img" src="https://beeimg.us.ci/temp/6ad4bf4349ec4.jpg" alt="黑羊">
             </div>
             <div class="sub-card">
                 <div class="sub-card-title">▸ 我在雾山影很想妳。</div>
-                <div class="sub-card-desc">
-                    以下为雾山影自助链接，感谢陛下指名♡。<br>
-                    雾山影合集<br>
-                    【病恋】<a class="sub-link" href="https://kdocs.cn/l/cjaxVo1fyLmY" target="_blank">https://kdocs.cn/l/cjaxVo1fyLmY</a><br>
-                    【虚恋】<a class="sub-link" href="https://kdocs.cn/l/cgEDT0gW4Cao" target="_blank">https://kdocs.cn/l/cgEDT0gW4Cao</a><br>
-                    【虐恋】<a class="sub-link" href="https://kdocs.cn/l/clUTaeIUYNB7" target="_blank">https://kdocs.cn/l/clUTaeIUYNB7</a><br>
-                    【纯连】<a class="sub-link" href="https://docs.qq.com/aio/DYmJKbE1wRFFzUm9C" target="_blank">https://docs.qq.com/aio/DYmJKbE1wRFFzUm9C</a>
-                </div>
+                <div class="sub-card-desc">以下为雾山影自助链接，感谢陛下指名♡。<br>雾山影合集<br>【病恋】<a class="sub-link" href="https://kdocs.cn/l/cjaxVo1fyLmY" target="_blank">https://kdocs.cn/l/cjaxVo1fyLmY</a><br>【虚恋】<a class="sub-link" href="https://kdocs.cn/l/cgEDT0gW4Cao" target="_blank">https://kdocs.cn/l/cgEDT0gW4Cao</a><br>【虐恋】<a class="sub-link" href="https://kdocs.cn/l/clUTaeIUYNB7" target="_blank">https://kdocs.cn/l/clUTaeIUYNB7</a><br>【纯连】<a class="sub-link" href="https://docs.qq.com/aio/DYmJKbE1wRFFzUm9C" target="_blank">https://docs.qq.com/aio/DYmJKbE1wRFFzUm9C</a></div>
                 <img class="sub-img" src="https://beeimg.us.ci/temp/6ad4bf4ac3303.jpg" alt="雾山影">
             </div>
             <div class="sub-card">
                 <div class="sub-card-title">▸ 代跑相关</div>
-                <div class="sub-card-desc">
-                    单图 | 云野雨林禁阁2r 墓土霞谷3r<br>
-                    全图蜡 | 20r<br>
-                    全图金人 | 25<br>
-                    直飞送门口 | 1r<br>
-                    养老专用 | 饭+任务+代币 5r/天<br>
-                    单日任务/饭/代币 | 2r<br>
-                    代仅接iOS | 带不限渠道<br>
-                    <a class="sub-link" href="http://t.cn/A6KxzHNc" target="_blank">http://t.cn/A6KxzHNc</a>
-                </div>
+                <div class="sub-card-desc">单图 | 云野雨林禁阁2r 墓土霞谷3r<br>全图蜡 | 20r<br>全图金人 | 25<br>直飞送门口 | 1r<br>养老专用 | 饭+任务+代币 5r/天<br>单日任务/饭/代币 | 2r<br>代仅接iOS | 带不限渠道<br><a class="sub-link" href="http://t.cn/A6KxzHNc" target="_blank">http://t.cn/A6KxzHNc</a></div>
             </div>
         </div>
     </div>
 
     <div class="page" id="page-notice">
         <div class="func-card" style="margin-top:10px;">
-            <div class="section-head">
-                <span class="num">05</span>
-                <h3>碎碎念</h3>
-                <span class="tag-deco">NOTICE</span>
-                <div class="line"></div>
-            </div>
+            <div class="section-head"><span class="num">05</span><h3>碎碎念</h3><span class="tag-deco">NOTICE</span><div class="line"></div></div>
             <div class="list">
                 <div class="list-item">1. 所有单子默认「先付后陪」，赊账拉黑。</div>
                 <div class="list-item">黑羊 | 雾山影均为常驻，其余在团情况请关注微博@AAA头骨 | @A頭骨了解详情。</div>
             </div>
-            <div class="sub-card" style="margin-top:14px;">
-                <img class="sub-img" src="https://beeimg.us.ci/temp/6ad56065b482e.jpg" alt="图一" style="margin-top:0;">
-            </div>
+            <div class="sub-card" style="margin-top:14px;"><img class="sub-img" src="https://beeimg.us.ci/temp/6ad56065b482e.jpg" alt="图一" style="margin-top:0;"></div>
             <div class="list">
                 <div class="list-item">在我这里会包容您的一切，所有事情都以妳为基准。</div>
                 <div class="list-item">非现取单默认拉群，如无需拉群提前告知。</div>
                 <div class="list-item">新手板有疑问可以大胆提出，我很乐意为妳解答。</div>
                 <div class="list-item">喜欢给下单板随机掉落嫖卡。</div>
             </div>
-            <div class="sub-card" style="margin-top:14px;">
-                <img class="sub-img" src="https://beeimg.us.ci/temp/6ad560a572d80.jpg" alt="图二" style="margin-top:0;">
-            </div>
+            <div class="sub-card" style="margin-top:14px;"><img class="sub-img" src="https://beeimg.us.ci/temp/6ad560a572d80.jpg" alt="图二" style="margin-top:0;"></div>
             <div class="list">
                 <div class="list-item">单内一切问题请找「我」解决，让女人伤心的事我办不到。</div>
                 <div class="list-item">十万紧急请call电话，上班时间科室不会一直关注消息。</div>
@@ -643,161 +208,103 @@
     </div>
 </div>
 
-<div class="modal-mask" id="modal-like">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-like')">×</button>
-        <div class="modal-title">喜欢</div>
-        <div class="modal-text">感谢你的喜欢！</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-collect">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-collect')">×</button>
-        <div class="modal-title">收藏</div>
-        <div class="modal-text">已收藏，感谢支持。</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-share">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-share')">×</button>
-        <div class="modal-title">分享</div>
-        <div class="modal-text">复制链接分享主页。</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-status">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-status')">×</button>
-        <div class="modal-title">接单状态</div>
-        <div class="modal-text">目前接单开放，可以私信咨询。</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-reply">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-reply')">×</button>
-        <div class="modal-title">回复速度</div>
-        <div class="modal-text">无特殊情况30min内回复。</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-order">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-order')">×</button>
-        <div class="modal-title">接单数</div>
-        <div class="modal-text">累计接单数：1211单（机密）</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-rate">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-rate')">×</button>
-        <div class="modal-title">好评率</div>
-        <div class="modal-text">好评率100%</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-review">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-review')">×</button>
-        <div class="modal-title">板评</div>
-        <div class="modal-text">板评页面已调整，感谢支持。</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-progress">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-progress')">×</button>
-        <div class="modal-title">派单度</div>
-        <div class="modal-text">当前派单度90%，可以排单预约。</div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-tag">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-tag')">×</button>
-        <div class="modal-title" id="tag-modal-title">标签</div>
-        <div class="modal-text" id="tag-modal-text"></div>
-    </div>
-</div>
-<div class="modal-mask" id="modal-more">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('modal-more')">×</button>
-        <div class="modal-title">更多</div>
-        <div class="modal-text">更多功能开发中</div>
-    </div>
-</div>
+<div class="modal-mask" id="modal-like"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-like')">×</button><div class="modal-title">喜欢</div><div class="modal-text">感谢你的喜欢！</div></div></div>
+<div class="modal-mask" id="modal-collect"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-collect')">×</button><div class="modal-title">收藏</div><div class="modal-text">已收藏，感谢支持。</div></div></div>
+<div class="modal-mask" id="modal-share"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-share')">×</button><div class="modal-title">分享</div><div class="modal-text">复制链接分享主页。</div></div></div>
+<div class="modal-mask" id="modal-status"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-status')">×</button><div class="modal-title">接单状态</div><div class="modal-text">目前接单开放，可以私信咨询。</div></div></div>
+<div class="modal-mask" id="modal-reply"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-reply')">×</button><div class="modal-title">回复速度</div><div class="modal-text">无特殊情况30min内回复。</div></div></div>
+<div class="modal-mask" id="modal-order"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-order')">×</button><div class="modal-title">接单数</div><div class="modal-text">累计接单数：1211单</div></div></div>
+<div class="modal-mask" id="modal-rate"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-rate')">×</button><div class="modal-title">好评率</div><div class="modal-text">好评率100%</div></div></div>
+<div class="modal-mask" id="modal-review"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-review')">×</button><div class="modal-title">板评</div><div class="modal-text">板评页面已调整，感谢支持。</div></div></div>
+<div class="modal-mask" id="modal-progress"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-progress')">×</button><div class="modal-title">派单度</div><div class="modal-text">当前派单度90%，可以排单预约。</div></div></div>
+<div class="modal-mask" id="modal-tag"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-tag')">×</button><div class="modal-title" id="tag-modal-title">标签</div><div class="modal-text" id="tag-modal-text"></div></div></div>
+<div class="modal-mask" id="modal-more"><div class="modal-box"><button class="modal-close" onclick="closeModal('modal-more')">×</button><div class="modal-title">更多</div><div class="modal-text">更多功能开发中</div></div></div>
 
 <script>
-let pageStack = ['page-home'];
+    // 页面切换逻辑
+    let pageStack = ['page-home'];
+    function renderPage(pageId){
+        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelectorAll('.app-tab').forEach(tab=>tab.classList.remove('active'));
+        const tabDom = document.querySelector(`.app-tab[data-page="${pageId}"]`);
+        if(tabDom) tabDom.classList.add('active');
+    }
+    function switchTab(pageId){
+        const idx = pageStack.indexOf(pageId);
+        if(idx !== -1){ pageStack = pageStack.slice(0, idx + 1); }else{ pageStack.push(pageId); }
+        renderPage(pageId);
+    }
+    function goBackPage(){ if(pageStack.length > 1){ pageStack.pop(); renderPage(pageStack[pageStack.length - 1]); } }
+    
+    // 弹窗逻辑
+    function openModal(id){ document.getElementById(id).classList.add('show'); }
+    function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+    function openTagModal(name){
+        document.getElementById('tag-modal-title').innerText = '标签 ' + name;
+        document.getElementById('tag-modal-text').innerText = '标签：' + name;
+        openModal('modal-tag');
+    }
+    document.querySelectorAll('.modal-mask').forEach(mask=>{
+        mask.addEventListener('click', function(e){ if(e.target === mask) mask.classList.remove('show'); });
+    });
 
-function renderPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-    document.querySelectorAll('.app-tab').forEach(tab => tab.classList.remove('active'));
-    const tabDom = document.querySelector(`.app-tab[data-page="${pageId}"]`);
-    if(tabDom) tabDom.classList.add('active');
-}
+    // 音乐控制
+    const bgmAudio = document.getElementById('bgmAudio');
+    const musicBtn = document.getElementById('musicBtn');
+    let isPlaying = false;
 
-function switchTab(pageId) {
-    const idx = pageStack.indexOf(pageId);
-    if(idx !== -1) {
-        pageStack = pageStack.slice(0, idx + 1);
+    function wechatLoad(){
+        try { bgmAudio.load(); } catch(e){}
+    }
+    if (typeof WeixinJSBridge === 'undefined'){
+        document.addEventListener('WeixinJSBridgeReady', wechatLoad, false);
     } else {
-        pageStack.push(pageId);
+        wechatLoad();
     }
-    renderPage(pageId);
-}
 
-function goBackPage() {
-    if(pageStack.length > 1) {
-        pageStack.pop();
-        renderPage(pageStack[pageStack.length - 1]);
+    function playMusic(e){
+        if(e) { e.preventDefault(); e.stopPropagation(); }
+        if (isPlaying) {
+            bgmAudio.pause();
+            musicBtn.textContent = '♫';
+            musicBtn.style.color = '#9c8b73';
+            isPlaying = false;
+        } else {
+            let playPromise = bgmAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicBtn.textContent = '♪';
+                    musicBtn.style.color = '#c9a36b';
+                    isPlaying = true;
+                }).catch(err => {
+                    console.log("播放被拦截或失败:", err);
+                    alert("微信限制了该外链音乐，请更换音频直链。");
+                });
+            }
+        }
     }
-}
 
-function openModal(id) {
-    document.getElementById(id).classList.add('show');
-}
-function closeModal(id) {
-    document.getElementById(id).classList.remove('show');
-}
-function openTagModal(name) {
-    document.getElementById('tag-modal-title').innerText = '标签 ' + name;
-    document.getElementById('tag-modal-text').innerText = '标签：' + name;
-    openModal('modal-tag');
-}
-document.querySelectorAll('.modal-mask').forEach(mask => {
-    mask.addEventListener('click', function(e) {
-        if(e.target === mask) mask.classList.remove('show');
-    });
-});
+    musicBtn.addEventListener('click', playMusic);
+    musicBtn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        playMusic(); 
+    }, { passive: false });
 
-const bgmAudio = document.getElementById('bgmAudio');
-const musicBtn = document.getElementById('musicBtn');
-bgmAudio.volume = 0.35;
-
-if (typeof WeixinJSBridge === 'undefined') {
-    document.addEventListener('WeixinJSBridgeReady', () => { try { bgmAudio.load(); } catch(e){} }, false);
-} else {
-    try { bgmAudio.load(); } catch(e){}
-}
-
-function playBgm() {
-    bgmAudio.play().then(() => { 
-        musicBtn.textContent = '♪'; 
-        musicBtn.style.color = '#c9a36b'; 
-    }).catch(() => {
-        musicBtn.textContent = '♫';
-    });
-}
-
-function pauseBgm() {
-    bgmAudio.pause();
-    musicBtn.textContent = '♫';
-    musicBtn.style.color = '#9c8b73'; 
-}
-
-function onMusicTap(e) {
-    if (e) { e.preventDefault(); e.stopPropagation(); }
-    bgmAudio.paused ? playBgm() : pauseBgm();
-}
-
-musicBtn.addEventListener('touchstart', onMusicTap, { passive: false });
-musicBtn.addEventListener('click', onMusicTap);
+    let firstTap = false;
+    document.addEventListener('touchstart', function(e) {
+        if (firstTap) return;
+        firstTap = true;
+        bgmAudio.load();
+        let p = bgmAudio.play();
+        if (p !== undefined) {
+            p.then(() => {
+                musicBtn.textContent = '♪';
+                musicBtn.style.color = '#c9a36b';
+                isPlaying = true;
+            }).catch(() => {});
+        }
+    }, { passive: true });
 </script>
 </body>
-</html>
+   </html>
